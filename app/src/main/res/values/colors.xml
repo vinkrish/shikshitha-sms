@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#E91E63</color>
+    <color name="colorPrimaryDark">#C2185B</color>
+    <color name="colorPrimaryLight">#F8BBD0</color>
+    <color name="colorAccent">#607D8B</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="default_white">#FAFAFA</color>
+    <color name="activity_background">#FCFCFC </color>
+    <color name="list_item_selected_state">#B2DFDB</color>
+    <color name="list_item_normal_state">#FAFAFA</color>
+</resources>
