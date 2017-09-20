@@ -19,6 +19,7 @@ import com.shikshitha.shikshithasms.attendance.AttendanceActivity;
 import com.shikshitha.shikshithasms.dao.TeacherDao;
 import com.shikshitha.shikshithasms.model.Credentials;
 import com.shikshitha.shikshithasms.model.TeacherCredentials;
+import com.shikshitha.shikshithasms.sms.SmsActivity;
 import com.shikshitha.shikshithasms.util.SharedPreferenceUtil;
 
 import butterknife.BindView;
@@ -112,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void navigateToDashboard() {
-        startActivity(new Intent(this, AttendanceActivity.class));
+        startActivity(new Intent(this, SmsActivity.class));
         finish();
     }
 

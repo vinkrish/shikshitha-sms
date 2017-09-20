@@ -26,6 +26,8 @@ interface SqlConstant {
     String CREATE_SMS_INFO = "CREATE TABLE sms_info (" +
             "  Id INTEGER PRIMARY KEY," +
             "  SchoolId INTEGER," +
+            "  ClassId INTEGER," +
+            "  SectionId INTEGER," +
             "  SenderId INTEGER," +
             "  SenderName TEXT," +
             "  SentTime INTEGER," +

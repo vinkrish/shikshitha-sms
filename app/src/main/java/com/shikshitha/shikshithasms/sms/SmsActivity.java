@@ -23,9 +23,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.shikshitha.shikshithasms.R;
 import com.shikshitha.shikshithasms.attendance.AttendanceActivity;
+import com.shikshitha.shikshithasms.dao.SmsDao;
 import com.shikshitha.shikshithasms.dao.TeacherDao;
 import com.shikshitha.shikshithasms.login.LoginActivity;
 import com.shikshitha.shikshithasms.model.Clas;
@@ -41,12 +43,15 @@ import com.shikshitha.shikshithasms.model.Student;
 import com.shikshitha.shikshithasms.model.StudentSet;
 import com.shikshitha.shikshithasms.model.Teacher;
 import com.shikshitha.shikshithasms.model.TeacherSet;
+import com.shikshitha.shikshithasms.smsinfo.SmsInfoActivity;
 import com.shikshitha.shikshithasms.sqlite.SqlDbHelper;
 import com.shikshitha.shikshithasms.util.DividerItemDecoration;
 import com.shikshitha.shikshithasms.util.NetworkUtil;
 import com.shikshitha.shikshithasms.util.SharedPreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -164,6 +169,10 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void smsInfo(View view) {
+        startActivity(new Intent(this, SmsInfoActivity.class));
     }
 
     public void sendMessage(MenuItem item) {
@@ -376,7 +385,7 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
 
     @Override
     public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -469,7 +478,9 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
 
     @Override
     public void smsSaved(Sms sms) {
-
+        SmsDao.insertSMSMessages(Collections.singletonList(sms));
+        targetSpinner.setSelection(0);
+        Toast.makeText(this, "SMS will be delivered soon!", Toast.LENGTH_SHORT).show();
     }
 
     public void selectAllStudents(View view) {

@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Vinay on 18-09-2017.
  */
 
-public class SmsPresenterImpl implements SmsPresenter, SmsInteractor.OnFinishedListener {
+class SmsPresenterImpl implements SmsPresenter, SmsInteractor.OnFinishedListener {
 
     private SmsView mView;
     private SmsInteractor mInteractor;

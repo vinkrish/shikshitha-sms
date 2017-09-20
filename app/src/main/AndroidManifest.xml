@@ -31,12 +31,13 @@
         <activity
             android:name=".attendance.AttendanceActivity"
             android:label="@string/attendance"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ContextToolbarTheme" />
         <activity
             android:name=".sms.SmsActivity"
             android:label="@string/title_activity_sms"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
@@ -44,7 +45,8 @@
             android:name=".smsinfo.SmsInfoActivity"
             android:label="@string/title_activity_sms_info"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
