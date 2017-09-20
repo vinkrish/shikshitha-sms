@@ -6,7 +6,9 @@ package com.shikshitha.shikshithasms.model;
 
 public class Sms {
     private long id;
-    private int schoolId;
+    private long schoolId;
+    private long classId;
+    private long sectionId;
     private long senderId;
     private String senderName;
     private long sentTime;
@@ -21,12 +23,28 @@ public class Sms {
         this.id = id;
     }
 
-    public int getSchoolId() {
+    public long getSchoolId() {
         return schoolId;
     }
 
-    public void setSchoolId(int schoolId) {
+    public void setSchoolId(long schoolId) {
         this.schoolId = schoolId;
+    }
+
+    public long getClassId() {
+        return classId;
+    }
+
+    public void setClassId(long classId) {
+        this.classId = classId;
+    }
+
+    public long getSectionId() {
+        return sectionId;
+    }
+
+    public void setSectionId(long sectionId) {
+        this.sectionId = sectionId;
     }
 
     public long getSenderId() {

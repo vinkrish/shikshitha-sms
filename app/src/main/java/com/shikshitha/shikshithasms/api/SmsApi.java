@@ -6,7 +6,13 @@ import com.shikshitha.shikshithasms.model.Attendance;
 import com.shikshitha.shikshithasms.model.Clas;
 import com.shikshitha.shikshithasms.model.Credentials;
 import com.shikshitha.shikshithasms.model.Section;
+import com.shikshitha.shikshithasms.model.Sms;
+import com.shikshitha.shikshithasms.model.SmsClass;
+import com.shikshitha.shikshithasms.model.SmsSection;
+import com.shikshitha.shikshithasms.model.SmsStudent;
+import com.shikshitha.shikshithasms.model.SmsTeacher;
 import com.shikshitha.shikshithasms.model.Student;
+import com.shikshitha.shikshithasms.model.Teacher;
 import com.shikshitha.shikshithasms.model.TeacherCredentials;
 import com.shikshitha.shikshithasms.model.Timetable;
 
@@ -47,6 +53,9 @@ public interface SmsApi {
     @GET("student/section/{sectionId}")
     Call<List<Student>> getStudents(@Path("sectionId") long sectionId);
 
+    @GET("teacher/school/{schoolId}")
+    Call<List<Teacher>> getTeacherList(@Path("schoolId") long schoolId);
+
     //Attendance API
 
     @GET("timetable/section/{sectionId}/day/{dayOfWeek}")
@@ -64,4 +73,32 @@ public interface SmsApi {
     @POST("app/attendance/delete")
     Call<Void> deleteAttendance(@Body ArrayList<Attendance> attendanceList);
 
+    //SMS Message API
+
+    @POST("smsmessage/school")
+    Call<Sms> sendSchoolSMS(@Body Sms sms);
+
+    @POST("smsmessage/class")
+    Call<Sms> sendClassSMS(@Body Sms sms);
+
+    @POST("smsmessage/classes")
+    Call<Sms> sendClassesSMS(@Body SmsClass smsClass);
+
+    @POST("smsmessage/section")
+    Call<Sms> sendSectionSMS(@Body Sms sms);
+
+    @POST("smsmessage/sections")
+    Call<Sms> sendSectionsSMS(@Body SmsSection smsSection);
+
+    @POST("smsmessage/school/male")
+    Call<Sms> sendMaleSMS(@Body Sms sms);
+
+    @POST("smsmessage/school/female")
+    Call<Sms> sendFemaleSMS(@Body Sms sms);
+
+    @POST("smsmessage/students")
+    Call<Sms> sendStudentSMS(@Body SmsStudent smsStudent);
+
+    @POST("smsmessage/teachers")
+    Call<Sms> sendTeacherSMS(@Body SmsTeacher smsTeacher);
 }

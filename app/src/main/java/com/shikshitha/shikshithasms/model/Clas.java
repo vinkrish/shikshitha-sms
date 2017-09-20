@@ -7,6 +7,13 @@ public class Clas {
     private long teacherId;
     private String attendanceType;
 
+    public Clas() {}
+
+    public Clas(long id, String className) {
+        this.id = id;
+        this.className = className;
+    }
+
     public long getId() {
         return id;
     }

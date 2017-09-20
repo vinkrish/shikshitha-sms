@@ -4,11 +4,11 @@ package com.shikshitha.shikshithasms.model;
  * Created by Vinay on 04-04-2017.
  */
 
-public class StudentSet extends Student {
+public class TeacherSet extends Teacher {
     private boolean isSelected;
 
-    public StudentSet(long id, int rollNo, String username, String name) {
-        super(id, rollNo, username, name);
+    public TeacherSet(long id, String username, String name) {
+        super(id, username, name);
         this.isSelected = false;
     }
 

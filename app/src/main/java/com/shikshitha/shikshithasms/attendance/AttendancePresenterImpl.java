@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Vinay on 21-04-2017.
  */
 
-public class AttendancePresenterImpl implements AttendancePresenter,
+class AttendancePresenterImpl implements AttendancePresenter,
         AttendanceInteractor.OnFinishedListener {
 
     private AttendanceView mView;

@@ -1,14 +1,14 @@
 package com.shikshitha.shikshithasms.model;
 
 /**
- * Created by Vinay on 04-04-2017.
+ * Created by Vinay on 18-09-2017.
  */
 
-public class StudentSet extends Student {
+public class ClasSet extends Clas {
     private boolean isSelected;
 
-    public StudentSet(long id, int rollNo, String username, String name) {
-        super(id, rollNo, username, name);
+    public ClasSet(long id, String className) {
+        super(id, className);
         this.isSelected = false;
     }
 

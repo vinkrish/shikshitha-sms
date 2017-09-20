@@ -6,6 +6,13 @@ public class Section {
     private long classId;
     private long teacherId;
 
+    public Section() {}
+
+    public Section(long id, String sectionName) {
+        this.id = id;
+        this.sectionName = sectionName;
+    }
+
     public long getId() {
         return id;
     }

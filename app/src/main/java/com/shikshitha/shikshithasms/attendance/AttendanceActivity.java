@@ -1,11 +1,14 @@
 package com.shikshitha.shikshithasms.attendance;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,12 +33,15 @@ import com.shikshitha.shikshithasms.dao.ClassDao;
 import com.shikshitha.shikshithasms.dao.SectionDao;
 import com.shikshitha.shikshithasms.dao.TeacherDao;
 import com.shikshitha.shikshithasms.dao.TimetableDao;
+import com.shikshitha.shikshithasms.login.LoginActivity;
 import com.shikshitha.shikshithasms.model.Attendance;
 import com.shikshitha.shikshithasms.model.Clas;
 import com.shikshitha.shikshithasms.model.Section;
 import com.shikshitha.shikshithasms.model.Student;
 import com.shikshitha.shikshithasms.model.StudentSet;
 import com.shikshitha.shikshithasms.model.Timetable;
+import com.shikshitha.shikshithasms.sms.SmsActivity;
+import com.shikshitha.shikshithasms.sqlite.SqlDbHelper;
 import com.shikshitha.shikshithasms.util.AlertDialogHelper;
 import com.shikshitha.shikshithasms.util.Conversion;
 import com.shikshitha.shikshithasms.util.DatePickerFragment;
@@ -43,6 +49,7 @@ import com.shikshitha.shikshithasms.util.DateUtil;
 import com.shikshitha.shikshithasms.util.DividerItemDecoration;
 import com.shikshitha.shikshithasms.util.NetworkUtil;
 import com.shikshitha.shikshithasms.util.RecyclerItemClickListener;
+import com.shikshitha.shikshithasms.util.SharedPreferenceUtil;
 
 import org.joda.time.LocalDate;
 
@@ -135,6 +142,45 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
         getMenuInflater().inflate(R.menu.attendance_overflow, menu);
         this.menu = menu;
         return true;
+    }
+
+    public boolean onPrepareOptionsMenu (Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sms_activity:
+                startActivity(new Intent(this, SmsActivity.class));
+                return true;
+            case R.id.logout:
+                logout();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void logout() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Are you sure you want to logout?");
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                SharedPreferenceUtil.logout(AttendanceActivity.this);
+                SqlDbHelper.getInstance(AttendanceActivity.this).deleteTables();
+                startActivity(new Intent(AttendanceActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
     @Override
@@ -369,7 +415,7 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
 
         ArrayList<StudentSet> studentSets = new ArrayList<>();
         for(Student s: attendanceSet.getStudents()) {
-            studentSets.add(new StudentSet(s.getId(), s.getRollNo(), s.getName()));
+            studentSets.add(new StudentSet(s.getId(), s.getRollNo(), s.getUsername(), s.getName()));
         }
         studentAdapter.setDataSet(studentSets);
         if(studentSets.size() == 0) {

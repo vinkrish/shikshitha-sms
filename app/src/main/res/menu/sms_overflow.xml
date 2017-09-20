@@ -2,15 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_save"
-        android:title="@string/save"
-        android:onClick="saveAbsentees"
-        app:showAsAction="always"
-        android:visible="false"/>
+    <item android:id="@+id/action_send"
+        android:title="@string/send"
+        android:onClick="sendMessage"
+        app:showAsAction="always" />
 
     <item
-        android:id="@+id/sms_activity"
-        android:title="@string/sms"
+        android:id="@+id/attendance_activity"
+        android:title="@string/attendance"
         android:visible="true"
         app:showAsAction="never" />
 

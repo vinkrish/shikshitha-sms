@@ -16,7 +16,9 @@ import com.shikshitha.shikshithasms.dao.TeacherDao;
 import com.shikshitha.shikshithasms.login.LoginActivity;
 import com.shikshitha.shikshithasms.model.AppVersion;
 import com.shikshitha.shikshithasms.model.Attendance;
+import com.shikshitha.shikshithasms.model.Sms;
 import com.shikshitha.shikshithasms.model.TeacherCredentials;
+import com.shikshitha.shikshithasms.sms.SmsActivity;
 import com.shikshitha.shikshithasms.util.AppGlobal;
 import com.shikshitha.shikshithasms.util.SharedPreferenceUtil;
 import com.shikshitha.shikshithasms.util.VersionIntentService;
@@ -63,7 +65,6 @@ public class SplashActivity extends AppCompatActivity {
             alertDialog.setNegativeButton("Update", new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    //dialogInterface.dismiss();
                     openPlayStore(getApplicationContext());
                 }
             });
@@ -84,7 +85,7 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         } else {
-            startActivity(new Intent(this, AttendanceActivity.class));
+            startActivity(new Intent(this, SmsActivity.class));
             finish();
         }
     }

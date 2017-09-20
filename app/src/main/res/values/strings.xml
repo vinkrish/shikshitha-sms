@@ -21,6 +21,7 @@
     <string name="select_class">Select Class</string>
     <string name="select_section">Select Section</string>
     <string name="select_student">Select Student</string>
+    <string name="select_teacher">Select Teacher</string>
     <string name="select_period">Select Period</string>
     <string name="session">Session :</string>
     <string name="morning">Morning</string>
@@ -34,5 +35,17 @@
     <string name="send">Send</string>
     <string name="menu_item_delete">Delete</string>
 
+    <string name="to">To</string>
+    <string name="classes">Classes</string>
+    <string name="sections">Sections</string>
+    <string name="students">Students</string>
+    <string name="teachers">Teachers</string>
+    <string name="select_all">Select All</string>
+    <string name="message">Message</string>
+    <string name="sms_hint">SMS to be sent</string>
+    <string name="empty_msg">Message Can\'t be empty</string>
+
     <string name="logout">Logout</string>
+    <string name="title_activity_sms">SMS</string>
+    <string name="title_activity_sms_info">SmsInfoActivity</string>
 </resources>

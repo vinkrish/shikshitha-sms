@@ -28,9 +28,10 @@ public class Student {
 
     }
 
-    public Student(long id, int rollNo, String name) {
+    public Student(long id, int rollNo, String username, String name) {
         this.id = id;
         this.rollNo = rollNo;
+        this.username = username;
         this.name = name;
     }
 

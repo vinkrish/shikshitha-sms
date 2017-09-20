@@ -17,8 +17,9 @@ public class Teacher {
     public Teacher() {
     }
 
-    public Teacher(long id, String name) {
+    public Teacher(long id, String username, String name) {
         this.id = id;
+        this.username = username;
         this.name = name;
     }
 
