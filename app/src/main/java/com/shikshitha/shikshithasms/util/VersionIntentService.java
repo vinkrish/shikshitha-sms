@@ -23,7 +23,7 @@ public class VersionIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         SmsApi api = ApiClient.getAuthorizedClient().create(SmsApi.class);
 
-        Call<AppVersion> queue = api.getAppVersion(BuildConfig.VERSION_CODE, "teacher");
+        Call<AppVersion> queue = api.getAppVersion(BuildConfig.VERSION_CODE, "sms");
         queue.enqueue(new Callback<AppVersion>() {
             @Override
             public void onResponse(Call<AppVersion> call, Response<AppVersion> response) {

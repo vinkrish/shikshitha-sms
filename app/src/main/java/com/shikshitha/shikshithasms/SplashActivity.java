@@ -54,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setTitle("Update Alert");
             alertDialog.setMessage("New version of app released!");
-            alertDialog.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+            alertDialog.setPositiveButton("No, Continue", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     SharedPreferenceUtil.updatePrompted(getApplicationContext(), true);
