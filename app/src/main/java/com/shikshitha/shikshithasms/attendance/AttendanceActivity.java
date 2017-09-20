@@ -107,6 +107,7 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         presenter = new AttendancePresenterImpl(this, new AttendanceInteractorImpl());
         setDefaultDate();
@@ -151,12 +152,6 @@ public class AttendanceActivity extends AppCompatActivity implements AttendanceV
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.sms_activity:
-                startActivity(new Intent(this, SmsActivity.class));
-                return true;
-            case R.id.logout:
-                logout();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

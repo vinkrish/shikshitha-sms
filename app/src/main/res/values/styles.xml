@@ -27,6 +27,11 @@
         <item name="color">@android:color/white</item>
     </style>
 
+    <style name="NavigationDrawerStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:listPreferredItemHeightSmall">46dp</item>
+    </style>
+
     <style name="AppTheme.ContextToolbarTheme">
         <item name="android:windowBackground">@color/activity_background</item>
         <item name="colorPrimary">@color/colorPrimary</item>

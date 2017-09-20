@@ -23,6 +23,20 @@ interface SqlConstant {
             "  Email TEXT" +
             ")";
 
+    String CREATE_SERVICE = "CREATE TABLE service (" +
+            " Id INTEGER, " +
+            " SchoolId INTEGER, " +
+            " IsMessage TEXT, " +
+            " IsSms TEXT, " +
+            " IsChat TEXT, " +
+            " IsAttendance TEXT, " +
+            " IsAttendanceSms TEXT," +
+            " IsHomework TEXT, " +
+            " IsHomeworkSms TEXT," +
+            " IsTimetable TEXT," +
+            " IsReport TEXT" +
+            ")";
+
     String CREATE_SMS_INFO = "CREATE TABLE sms_info (" +
             "  Id INTEGER PRIMARY KEY," +
             "  SchoolId INTEGER," +

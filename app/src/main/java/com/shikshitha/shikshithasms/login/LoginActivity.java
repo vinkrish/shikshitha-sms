@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 
 import com.shikshitha.shikshithasms.R;
 import com.shikshitha.shikshithasms.attendance.AttendanceActivity;
+import com.shikshitha.shikshithasms.dao.ServiceDao;
 import com.shikshitha.shikshithasms.dao.TeacherDao;
 import com.shikshitha.shikshithasms.model.Credentials;
 import com.shikshitha.shikshithasms.model.TeacherCredentials;
@@ -107,6 +108,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public void saveUser(TeacherCredentials teacherCredentials) {
         TeacherDao.clear();
         TeacherDao.insert(teacherCredentials.getTeacher());
+        ServiceDao.clear();
+        ServiceDao.insert(teacherCredentials.getService());
         teacherCredentials.setMobileNo(loginId.getText().toString());
         SharedPreferenceUtil.saveTeacher(this, teacherCredentials);
     }

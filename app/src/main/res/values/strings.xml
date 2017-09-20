@@ -42,11 +42,11 @@
     <string name="teachers">Teachers</string>
     <string name="select_all">Select All</string>
     <string name="message">Message</string>
-    <string name="sms_hint">SMS to be sent</string>
+    <string name="sms_hint">Message</string>
     <string name="empty_msg">Message Can\'t be empty</string>
     <string name="sms_history">View SMS History</string>
 
     <string name="logout">Logout</string>
     <string name="title_activity_sms">SMS</string>
-    <string name="title_activity_sms_info">SmsInfoActivity</string>
+    <string name="title_activity_sms_info">Sms History</string>
 </resources>

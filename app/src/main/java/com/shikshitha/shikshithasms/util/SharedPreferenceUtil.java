@@ -38,22 +38,6 @@ public class SharedPreferenceUtil {
         editor.apply();
     }
 
-    public static void saveFcmToken(Context context, String fcmToken) {
-        SharedPreferences sharedPref = context.getSharedPreferences("fcm", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("fcmToken", fcmToken);
-        editor.putBoolean("isSaved", false);
-        editor.apply();
-    }
-
-    public static Authorization getAuthorization(Context context){
-        SharedPreferences sharedPref = context.getSharedPreferences("fcm", Context.MODE_PRIVATE);
-        Authorization authorization = new Authorization();
-        authorization.setFcmToken(sharedPref.getString("fcmToken", ""));
-        authorization.setUser(sharedPref.getString("user", ""));
-        return authorization;
-    }
-
     public static void saveAuthorizedUser(Context context, String user) {
         SharedPreferences sharedPref = context.getSharedPreferences("fcm", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();

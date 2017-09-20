@@ -25,6 +25,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TEACHER);
+        db.execSQL(CREATE_SERVICE);
         db.execSQL(CREATE_SMS_INFO);
         db.execSQL(CREATE_ATTENDANCE);
         db.execSQL(CREATE_CLASS);
@@ -36,6 +37,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS teacher");
+        db.execSQL("DROP TABLE IF EXISTS service");
         db.execSQL("DROP TABLE IF EXISTS sms_info");
         db.execSQL("DROP TABLE IF EXISTS attendance");
         db.execSQL("DROP TABLE IF EXISTS class");
@@ -48,6 +50,7 @@ public class SqlDbHelper extends SQLiteOpenHelper implements SqlConstant {
     public void deleteTables() {
         sqliteDatabase = dbHelper.getWritableDatabase();
         sqliteDatabase.delete("teacher", null, null);
+        sqliteDatabase.delete("service", null, null);
         sqliteDatabase.delete("sms_info", null, null);
         sqliteDatabase.delete("attendance", null, null);
         sqliteDatabase.delete("class", null, null);

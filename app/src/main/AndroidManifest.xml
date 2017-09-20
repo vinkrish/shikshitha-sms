@@ -33,7 +33,11 @@
             android:label="@string/attendance"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ContextToolbarTheme" />
+            android:theme="@style/AppTheme.ContextToolbarTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".sms.SmsActivity" />
+        </activity>
         <activity
             android:name=".sms.SmsActivity"
             android:label="@string/title_activity_sms"
@@ -46,7 +50,11 @@
             android:label="@string/title_activity_sms_info"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".sms.SmsActivity" />
+        </activity>
     </application>
 
 </manifest>

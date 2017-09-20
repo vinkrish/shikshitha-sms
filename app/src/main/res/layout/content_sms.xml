@@ -233,20 +233,6 @@
 
             </LinearLayout>
 
-            <Button
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:layout_marginTop="@dimen/spacing_small"
-                android:onClick="smsInfo"
-                android:text="@string/sms_history"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_medium" />
-
         </LinearLayout>
 
         <ProgressBar

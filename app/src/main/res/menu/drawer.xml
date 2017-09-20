@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/sms_item"
+            android:checked="true"
+            android:icon="@drawable/ic_sms_black"
+            android:title="@string/sms" />
+        <item
+            android:id="@+id/attendance_item"
+            android:checked="false"
+            android:icon="@drawable/ic_attendance_black"
+            android:title="@string/attendance" />
+        <item
+            android:id="@+id/history_item"
+            android:checked="false"
+            android:icon="@drawable/ic_history_black"
+            android:title="@string/sms_history" />
+        <item
+            android:id="@+id/logout_item"
+            android:checked="false"
+            android:icon="@drawable/ic_logout_black"
+            android:title="@string/logout" />
+    </group>
+</menu>

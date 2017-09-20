@@ -2,10 +2,18 @@ package com.shikshitha.shikshithasms.sms;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,13 +28,16 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shikshitha.shikshithasms.R;
 import com.shikshitha.shikshithasms.attendance.AttendanceActivity;
+import com.shikshitha.shikshithasms.dao.ServiceDao;
 import com.shikshitha.shikshithasms.dao.SmsDao;
 import com.shikshitha.shikshithasms.dao.TeacherDao;
 import com.shikshitha.shikshithasms.login.LoginActivity;
@@ -34,6 +45,7 @@ import com.shikshitha.shikshithasms.model.Clas;
 import com.shikshitha.shikshithasms.model.ClasSet;
 import com.shikshitha.shikshithasms.model.Section;
 import com.shikshitha.shikshithasms.model.SectionSet;
+import com.shikshitha.shikshithasms.model.Service;
 import com.shikshitha.shikshithasms.model.Sms;
 import com.shikshitha.shikshithasms.model.SmsClass;
 import com.shikshitha.shikshithasms.model.SmsSection;
@@ -47,8 +59,14 @@ import com.shikshitha.shikshithasms.smsinfo.SmsInfoActivity;
 import com.shikshitha.shikshithasms.sqlite.SqlDbHelper;
 import com.shikshitha.shikshithasms.util.DividerItemDecoration;
 import com.shikshitha.shikshithasms.util.NetworkUtil;
+import com.shikshitha.shikshithasms.util.PermissionUtil;
 import com.shikshitha.shikshithasms.util.SharedPreferenceUtil;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -62,6 +80,8 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.navigation_view) NavigationView navigationView;
+    @BindView(R.id.drawer) DrawerLayout drawerLayout;
     @BindView(R.id.message_layout) TextInputLayout messageLayout;
     @BindView(R.id.message) EditText message;
     @BindView(R.id.target_spinner) Spinner targetSpinner;
@@ -96,6 +116,8 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
         setContentView(R.layout.activity_sms);
         ButterKnife.bind(this);
 
+        setupDrawerContent(navigationView);
+
         setSupportActionBar(toolbar);
 
         teacher = TeacherDao.getTeacher();
@@ -103,6 +125,25 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
         initView();
 
         presenter = new SmsPresenterImpl(this, new SmsInteractorImpl());
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new
+                ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name) {
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        super.onDrawerClosed(drawerView);
+                    }
+
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        super.onDrawerOpened(drawerView);
+                    }
+                };
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        setProfile();
+
+        hideDrawerItem();
 
         if(NetworkUtil.isNetworkAvailable(this)) {
             presenter.getClassList(teacher.getSchoolId());
@@ -160,19 +201,82 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.attendance_activity:
-                startActivity(new Intent(this, AttendanceActivity.class));
-                return true;
-            case R.id.logout:
-                logout();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    public void smsInfo(View view) {
-        startActivity(new Intent(this, SmsInfoActivity.class));
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.sms_item:
+                        startActivity(new Intent(SmsActivity.this, SmsActivity.class));
+                        break;
+                    case R.id.attendance_item:
+                        startActivity(new Intent(SmsActivity.this, AttendanceActivity.class));
+                        break;
+                    case R.id.history_item:
+                        startActivity(new Intent(SmsActivity.this, SmsInfoActivity.class));
+                        break;
+                    case R.id.logout_item:
+                        logout();
+                        break;
+                    default:
+                        break;
+                }
+                menuItem.setChecked(false);
+                drawerLayout.closeDrawers();
+                return false;
+            }
+        });
+    }
+
+    private void hideDrawerItem() {
+        Menu menu = navigationView.getMenu();
+        Service service = ServiceDao.getServices();
+        if(!service.isAttendance()) menu.findItem(R.id.attendance_item).setVisible(false);
+    }
+
+    private void setProfile() {
+        View hView = navigationView.inflateHeaderView(R.layout.header);
+        final ImageView imageView = hView.findViewById(R.id.user_image);
+        TextView tv = hView.findViewById(R.id.name);
+        tv.setText(teacher.getName());
+
+        if(PermissionUtil.getStoragePermissionStatus(this)) {
+            File dir = new File(Environment.getExternalStorageDirectory().getPath(), "Shikshitha/Sms/" + teacher.getSchoolId());
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            final File file = new File(dir, teacher.getImage());
+            if(file.exists()) {
+                imageView.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+            } else {
+                Picasso.with(this)
+                        .load("https://s3.ap-south-1.amazonaws.com/shikshitha-images/" + teacher.getSchoolId() + "/" + teacher.getImage())
+                        .placeholder(R.drawable.ic_account_black)
+                        .into(imageView, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                                try {
+                                    FileOutputStream fos = new FileOutputStream(file);
+                                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                                    fos.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError() {
+                                imageView.setImageResource(R.drawable.ic_account_black);
+                            }
+                        });
+            }
+        }
     }
 
     public void sendMessage(MenuItem item) {
@@ -501,6 +605,25 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
         }
         teacherAdapter.setDataSet(teacherSets);
         hideProgress();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isNavDrawerOpen()) {
+            closeNavDrawer();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    protected boolean isNavDrawerOpen() {
+        return drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START);
+    }
+
+    protected void closeNavDrawer() {
+        if (drawerLayout != null) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
     }
 
     @Override
