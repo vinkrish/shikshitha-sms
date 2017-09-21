@@ -46,7 +46,8 @@ interface SqlConstant {
             "  SenderName TEXT," +
             "  SentTime INTEGER," +
             "  Message TEXT," +
-            "  SentTo TEXT" +
+            "  SentTo TEXT," +
+            "  RecipientRole TEXT" +
             ")";
 
     String CREATE_ATTENDANCE = "CREATE TABLE attendance (" +

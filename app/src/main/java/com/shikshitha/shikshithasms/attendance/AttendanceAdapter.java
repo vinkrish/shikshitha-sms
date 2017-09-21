@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * Created by Vinay on 23-04-2017.
  */
 
-public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.ViewHolder>{
+class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.ViewHolder>{
     private Context mContext;
     private List<Attendance> absentees;
     private List<Attendance> selected_absentees;
@@ -38,7 +38,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
     }
 
     @UiThread
-    public void setDataSet(List<Attendance> absentees, List<Attendance> selected_absentees) {
+    void setDataSet(List<Attendance> absentees, List<Attendance> selected_absentees) {
         this.absentees = absentees;
         this.selected_absentees = selected_absentees;
         notifyDataSetChanged();

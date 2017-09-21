@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Shikshitha SMS</string>
+    <string name="app_name">SMS</string>
     <string name="sms">SMS</string>
 
     <string name="login">Login</string>
@@ -36,6 +36,7 @@
     <string name="menu_item_delete">Delete</string>
 
     <string name="to">To</string>
+    <string name="sent_to">Sent To:</string>
     <string name="classes">Classes</string>
     <string name="sections">Sections</string>
     <string name="students">Students</string>
@@ -45,6 +46,7 @@
     <string name="sms_hint">Message</string>
     <string name="empty_msg">Message Can\'t be empty</string>
     <string name="sms_history">View SMS History</string>
+    <string name="no_sms">No SMS Sent!</string>
 
     <string name="logout">Logout</string>
     <string name="title_activity_sms">SMS</string>

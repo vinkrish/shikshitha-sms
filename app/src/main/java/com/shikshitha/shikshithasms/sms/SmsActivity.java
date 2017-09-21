@@ -106,7 +106,7 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
     private StudentAdapter studentAdapter;
     private TeacherAdapter teacherAdapter;
 
-    private String[] target = {"Whole School/College", "Class", "Multiple Classes",
+    private String[] target = {"All Students", "Class", "Multiple Classes",
             "Section", "Multiple Sections", "All Male Students",
             "All Female Students", "Students", "Teachers"};
 
@@ -276,6 +276,8 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
                             }
                         });
             }
+        } else {
+            imageView.setImageResource(R.drawable.avatar);
         }
     }
 
@@ -290,13 +292,15 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
             sms.setSentTime(System.currentTimeMillis());
             sms.setMessage(message.getText().toString());
             switch (targetSpinner.getSelectedItem().toString()) {
-                case "Whole School/College":
-                    sms.setSentTo("Whole School/College");
+                case "All Students":
+                    sms.setSentTo(" - ");
+                    sms.setRecipientRole("All Students");
                     presenter.sendSchoolSMS(sms);
                     break;
                 case "Class":
                     sms.setClassId(((Clas) classSpinner.getSelectedItem()).getId());
-                    sms.setSentTo("Class");
+                    sms.setSentTo(((Clas) classSpinner.getSelectedItem()).getClassName());
+                    sms.setRecipientRole("Class");
                     presenter.sendClassSMS(sms);
                     break;
                 case "Multiple Classes":
@@ -309,7 +313,8 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
                         }
                     }
                     if(classes.size() > 0) {
-                        sms.setSentTo("Multiple Classes: " + classNames.substring(0, classNames.length()-1));
+                        sms.setSentTo(classNames.substring(0, classNames.length()-1));
+                        sms.setRecipientRole("Classes");
                         presenter.sendClassesSMS(new SmsClass(classes, sms));
                     } else {
                         showSnackbar("Please select classes");
@@ -317,7 +322,9 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
                     break;
                 case "Section":
                     sms.setSectionId(((Section) sectionSpinner.getSelectedItem()).getId());
-                    sms.setSentTo("Section");
+                    sms.setSentTo(((Clas) classSpinner.getSelectedItem()).getClassName() + " - " +
+                            ((Section) sectionSpinner.getSelectedItem()).getSectionName());
+                    sms.setRecipientRole("Section");
                     presenter.sendSectionSMS(sms);
                     break;
                 case "Multiple Sections":
@@ -330,19 +337,23 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
                         }
                     }
                     if(sections.size() > 0) {
-                        sms.setSentTo("Multiple Section: " + sectionNames.substring(0, sectionNames.length()-1));
+                        sms.setSentTo(((Clas) classSpinner.getSelectedItem()).getClassName() + ": " +
+                                sectionNames.substring(0, sectionNames.length()-1));
+                        sms.setRecipientRole("Sections");
                         presenter.sendSectionsSMS(new SmsSection(sections, sms));
                     } else {
                         showSnackbar("Please select sections");
                     }
                     break;
                 case "All Male Students":
+                    sms.setSentTo(" - ");
+                    sms.setRecipientRole("All Male Students");
                     presenter.sendMaleSMS(sms);
-                    sms.setSentTo("All Male Students");
                     break;
                 case "All Female Students":
+                    sms.setSentTo(" - ");
+                    sms.setRecipientRole("All Female Students");
                     presenter.sendFemaleSMS(sms);
-                    sms.setSentTo("All Female Students");
                     break;
                 case "Students":
                     List<Student> students = new ArrayList<>();
@@ -354,7 +365,12 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
                         }
                     }
                     if(students.size() > 0) {
-                        sms.setSentTo("Students: " + studentNames.substring(0, studentNames.length()-1));
+                        sms.setSentTo(((Clas) classSpinner.getSelectedItem()).getClassName() + " - " +
+                                ((Section) sectionSpinner.getSelectedItem()).getSectionName() + ": " +
+                                studentNames.substring(0, studentNames.length()-1));
+                        sms.setClassId(((Clas) classSpinner.getSelectedItem()).getId());
+                        sms.setSectionId(((Section) sectionSpinner.getSelectedItem()).getId());
+                        sms.setRecipientRole("Students");
                         presenter.sendStudentSMS(new SmsStudent(students, sms));
                     } else {
                         showSnackbar("Please select students");
@@ -370,7 +386,8 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
                         }
                     }
                     if(teachers.size() > 0) {
-                        sms.setSentTo("Teachers: " + teacherNames.substring(0, teacherNames.length()-1));
+                        sms.setSentTo(teacherNames.substring(0, teacherNames.length()-1));
+                        sms.setRecipientRole("Teachers");
                         presenter.sendTeacherSms(new SmsTeacher(teachers, sms));
                     } else {
                         showSnackbar("Please select teachers");
@@ -436,7 +453,7 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
     private void targetSelected(String target) {
         clearTarget();
         switch (target) {
-            case "Whole School/College":
+            case "All Students":
                 break;
             case "Class":
                 classLayout.setVisibility(View.VISIBLE);
@@ -489,11 +506,12 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
 
     @Override
     public void hideProgress() {
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void showError(String message) {
+        progressBar.setVisibility(View.GONE);
         showSnackbar(message);
     }
 
@@ -582,6 +600,7 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
 
     @Override
     public void smsSaved(Sms sms) {
+        message.setText("");
         SmsDao.insertSMSMessages(Collections.singletonList(sms));
         targetSpinner.setSelection(0);
         Toast.makeText(this, "SMS will be delivered soon!", Toast.LENGTH_SHORT).show();

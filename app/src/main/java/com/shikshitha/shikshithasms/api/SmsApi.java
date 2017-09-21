@@ -101,4 +101,11 @@ public interface SmsApi {
 
     @POST("smsmessage/teachers")
     Call<Sms> sendTeacherSMS(@Body SmsTeacher smsTeacher);
+
+    @GET("smsmessage/sender/{senderId}/messagesUp/{messageId}")
+    Call<ArrayList<Sms>> getSMSMessagesAboveId(@Path("senderId") long senderId,
+                                                     @Path("messageId") long messageId);
+
+    @GET("smsmessage/sender/{senderId}")
+    Call<ArrayList<Sms>> getSMSMessages(@Path("senderId") long senderId);
 }
