@@ -601,7 +601,6 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
     @Override
     public void smsSaved(Sms sms) {
         message.setText("");
-        SmsDao.insertSMSMessages(Collections.singletonList(sms));
         targetSpinner.setSelection(0);
         Toast.makeText(this, "SMS will be delivered soon!", Toast.LENGTH_SHORT).show();
     }
