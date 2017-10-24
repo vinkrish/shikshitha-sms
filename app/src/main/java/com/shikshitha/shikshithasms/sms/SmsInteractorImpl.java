@@ -69,7 +69,7 @@ class SmsInteractorImpl implements SmsInteractor {
     }
 
     @Override
-    public void getStdudent(long sectionId, final OnFinishedListener listener) {
+    public void getStudent(long sectionId, final OnFinishedListener listener) {
         SmsApi api = ApiClient.getAuthorizedClient().create(SmsApi.class);
 
         Call<List<Student>> queue = api.getStudents(sectionId);
@@ -115,6 +115,27 @@ class SmsInteractorImpl implements SmsInteractor {
         SmsApi api = ApiClient.getAuthorizedClient().create(SmsApi.class);
 
         Call<Sms> queue = api.sendSchoolSMS(sms);
+        queue.enqueue(new Callback<Sms>() {
+            @Override
+            public void onResponse(Call<Sms> call, Response<Sms> response) {
+                if(response.isSuccessful()) {
+                    listener.onSmsSaved(response.body());
+                } else {
+                    listener.onError(App.getInstance().getString(R.string.request_error));
+                }
+            }
+            @Override
+            public void onFailure(Call<Sms> call, Throwable t) {
+                listener.onError(App.getInstance().getString(R.string.network_error));
+            }
+        });
+    }
+
+    @Override
+    public void sendAllStudentsSMS(Sms sms, final OnFinishedListener listener) {
+        SmsApi api = ApiClient.getAuthorizedClient().create(SmsApi.class);
+
+        Call<Sms> queue = api.sendAllStudentsSMS(sms);
         queue.enqueue(new Callback<Sms>() {
             @Override
             public void onResponse(Call<Sms> call, Response<Sms> response) {

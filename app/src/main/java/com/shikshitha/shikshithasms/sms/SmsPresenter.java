@@ -27,6 +27,8 @@ interface SmsPresenter {
 
     void sendSchoolSMS(Sms sms);
 
+    void sendAllStudentsSMS(Sms sms);
+
     void sendClassSMS(Sms sms);
 
     void sendClassesSMS(SmsClass smsClass);

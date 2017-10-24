@@ -35,11 +35,13 @@ interface SmsInteractor {
 
     void getSectionList(long classId, SmsInteractor.OnFinishedListener listener);
 
-    void getStdudent(long sectionId, SmsInteractor.OnFinishedListener listener);
+    void getStudent(long sectionId, SmsInteractor.OnFinishedListener listener);
 
     void getTeachers(long schoolId, SmsInteractor.OnFinishedListener listener);
 
     void sendSchoolSMS(Sms sms, SmsInteractor.OnFinishedListener listener);
+
+    void sendAllStudentsSMS(Sms sms, SmsInteractor.OnFinishedListener listener);
 
     void sendClassSMS(Sms sms, SmsInteractor.OnFinishedListener listener);
 

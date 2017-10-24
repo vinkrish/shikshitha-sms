@@ -78,8 +78,7 @@ import butterknife.ButterKnife;
 public class SmsActivity extends AppCompatActivity implements SmsView,
         AdapterView.OnItemSelectedListener {
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.navigation_view) NavigationView navigationView;
     @BindView(R.id.drawer) DrawerLayout drawerLayout;
     @BindView(R.id.message_layout) TextInputLayout messageLayout;
@@ -106,7 +105,7 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
     private StudentAdapter studentAdapter;
     private TeacherAdapter teacherAdapter;
 
-    private String[] target = {"All Students", "Class", "Multiple Classes",
+    private String[] target = {"All Students & Teachers", "All Students", "Class", "Multiple Classes",
             "Section", "Multiple Sections", "All Male Students",
             "All Female Students", "Students", "Teachers"};
 
@@ -292,6 +291,11 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
             sms.setSentTime(System.currentTimeMillis());
             sms.setMessage(message.getText().toString());
             switch (targetSpinner.getSelectedItem().toString()) {
+                case "All Students & Teachers":
+                    sms.setSentTo(" - ");
+                    sms.setRecipientRole("All Students");
+                    presenter.sendSchoolSMS(sms);
+                    break;
                 case "All Students":
                     sms.setSentTo(" - ");
                     sms.setRecipientRole("All Students");

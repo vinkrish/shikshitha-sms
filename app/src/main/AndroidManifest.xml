@@ -27,7 +27,8 @@
             android:name=".login.LoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".attendance.AttendanceActivity"
             android:label="@string/attendance"
@@ -60,7 +61,8 @@
             android:name=".util.VersionIntentService"
             android:exported="false" />
 
-        <activity android:name=".smsinfo.SmsViewActivity"
+        <activity
+            android:name=".smsinfo.SmsViewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/BlackActionBar">

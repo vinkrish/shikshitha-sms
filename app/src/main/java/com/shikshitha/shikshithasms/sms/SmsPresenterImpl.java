@@ -46,7 +46,7 @@ class SmsPresenterImpl implements SmsPresenter, SmsInteractor.OnFinishedListener
     public void getStudents(long sectionId) {
         if (mView != null) {
             mView.showProgress();
-            mInteractor.getStdudent(sectionId, this);
+            mInteractor.getStudent(sectionId, this);
         }
     }
 
@@ -63,6 +63,14 @@ class SmsPresenterImpl implements SmsPresenter, SmsInteractor.OnFinishedListener
         if (mView != null) {
             mView.showProgress();
             mInteractor.sendSchoolSMS(sms, this);
+        }
+    }
+
+    @Override
+    public void sendAllStudentsSMS(Sms sms) {
+        if (mView != null) {
+            mView.showProgress();
+            mInteractor.sendAllStudentsSMS(sms, this);
         }
     }
 

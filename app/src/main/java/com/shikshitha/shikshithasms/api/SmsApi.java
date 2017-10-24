@@ -33,7 +33,7 @@ import retrofit2.http.Path;
 public interface SmsApi {
 
     @Headers("content-type: application/json")
-    @POST("teacher/login")
+    @POST("teacher/sms/login")
     Call<TeacherCredentials> login(@Body Credentials credentials);
 
     @Headers("content-type: application/json")
@@ -78,6 +78,9 @@ public interface SmsApi {
     @POST("smsmessage/school")
     Call<Sms> sendSchoolSMS(@Body Sms sms);
 
+    @POST("smsmessage/allstudents")
+    Call<Sms> sendAllStudentsSMS(@Body Sms sms);
+
     @POST("smsmessage/class")
     Call<Sms> sendClassSMS(@Body Sms sms);
 
@@ -104,7 +107,7 @@ public interface SmsApi {
 
     @GET("smsmessage/sender/{senderId}/messagesUp/{messageId}")
     Call<ArrayList<Sms>> getSMSMessagesAboveId(@Path("senderId") long senderId,
-                                                     @Path("messageId") long messageId);
+                                               @Path("messageId") long messageId);
 
     @GET("smsmessage/sender/{senderId}")
     Call<ArrayList<Sms>> getSMSMessages(@Path("senderId") long senderId);
