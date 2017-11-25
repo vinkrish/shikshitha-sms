@@ -15,6 +15,7 @@ public class Sms implements Serializable {
     private String senderName;
     private long sentTime;
     private String message;
+    private int smsCount;
     private String sentTo;
     private String recipientRole;
 
@@ -80,6 +81,14 @@ public class Sms implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getSmsCount() {
+        return smsCount;
+    }
+
+    public void setSmsCount(int smsCount) {
+        this.smsCount = smsCount;
     }
 
     public String getSentTo() {

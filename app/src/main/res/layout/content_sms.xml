@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:counterEnabled="true"
-                app:counterMaxLength="310">
+                app:counterMaxLength="800">
 
                 <EditText
                     android:id="@+id/message"
@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/sms_hint"
                     android:inputType="text|textMultiLine"
-                    android:maxLength="310"
+                    android:maxLength="800"
                     android:textSize="@dimen/text_xsmall" />
 
             </android.support.design.widget.TextInputLayout>

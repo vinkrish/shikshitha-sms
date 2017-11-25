@@ -255,7 +255,6 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
             } else {
                 Picasso.with(this)
                         .load("https://s3.ap-south-1.amazonaws.com/shikshitha-images/" + teacher.getSchoolId() + "/" + teacher.getImage())
-                        .placeholder(R.drawable.ic_account_black)
                         .into(imageView, new Callback() {
                             @Override
                             public void onSuccess() {
@@ -290,6 +289,7 @@ public class SmsActivity extends AppCompatActivity implements SmsView,
             sms.setSenderName(teacher.getName());
             sms.setSentTime(System.currentTimeMillis());
             sms.setMessage(message.getText().toString());
+            sms.setSmsCount(message.getText().length()/2);
             switch (targetSpinner.getSelectedItem().toString()) {
                 case "All Students & Teachers":
                     sms.setSentTo(" - ");

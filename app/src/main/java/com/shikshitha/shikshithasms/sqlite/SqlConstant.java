@@ -6,7 +6,7 @@ package com.shikshitha.shikshithasms.sqlite;
 interface SqlConstant {
 
     String DATABASE_NAME = "sms.db";
-    int DATABASE_VERSION = 1;
+    int DATABASE_VERSION = 2;
 
     String CREATE_TEACHER = "CREATE TABLE teacher (" +
             "  Id INTEGER," +
@@ -46,6 +46,7 @@ interface SqlConstant {
             "  SenderName TEXT," +
             "  SentTime INTEGER," +
             "  Message TEXT," +
+            "  SmsCount INTEGER," +
             "  SentTo TEXT," +
             "  RecipientRole TEXT" +
             ")";
